@@ -1,5 +1,5 @@
 # jobstatusrestapi
-restapi that can be used to manage the jobstatuses \\
+restapi that can be used to manage the jobstatuses \
 
 using like this: \
 Reading a job status: GET /readjobstatus/ID \
