@@ -71,7 +71,6 @@ const addJobStatus = (req) => {
     var jsonData = JSON.parse(data)
     var appendData = {ID: req.ID, Status: req.Status}
     jsonData.push(appendData)
-    console.log(jsonData)
 
     fs.writeFile('./jobstatus.json', JSON.stringify(jsonData), function(err){
         if (err){
@@ -90,7 +89,6 @@ const removeJobStatus = (ID) => {
     }
     var data = fs.readFileSync('./jobstatus.json', 'utf8', function (err){
         if (err){
-            console.log(err);
             return "could not read the db data"
         }
     });
