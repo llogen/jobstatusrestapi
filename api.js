@@ -12,16 +12,12 @@ const readJobStatus = (ID) => {
             return "could not read the db data"
         }
     });
-    var jsonData = JSON.parse(data)
     
-    var found = false
+    var jsonData = JSON.parse(data)    
     for (var i = 0; i < jsonData.length; i++){
         if (jsonData[i].ID == ID){
-            found = true
+            return jsonData[i].Status;
         }
-    }
-    if (found){
-        return jsonData[ID-1].Status;
     }
     return "Job does not exist";
 };
@@ -72,13 +68,10 @@ const addJobStatus = (req) => {
     var appendData = {ID: req.ID, Status: req.Status}
     jsonData.push(appendData)
 
-    fs.writeFile('./jobstatus.json', JSON.stringify(jsonData), function(err){
-        if (err){
-            return "Job could not be added"
-        }else{
-            return "Job added"; 
-        }
+    fs.writeFile('./jobstatus.json', JSON.stringify(jsonData, undefined, 2), function(err){
+        if (err) return "Job could not be added"
     });
+    return "Job added"; 
 };
 
 const removeJobStatus = (ID) => {
@@ -99,15 +92,11 @@ const removeJobStatus = (ID) => {
             jsonData.splice(i,i);
         }
     }
-    console.log(jsonData)
 
-    fs.writeFile('./jobstatus.json', JSON.stringify(jsonData), function(err){
-        if (err){
-            return "Job could not be removed"
-        }else{
-            return "Job removed"; 
-        }
+    fs.writeFile('./jobstatus.json', JSON.stringify(jsonData, undefined, 2), function(err){
+        if (err) return "Job could not be removed"
     });
+    return "Job removed"
 };
 
 app.use(express.json());
